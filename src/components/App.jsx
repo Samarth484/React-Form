@@ -1,37 +1,46 @@
 import React, { useState } from "react";
 
 function App() {
-  const [isWhat, setIsWhat] = useState(false);
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  function setTrue() {
-    setIsWhat(true);
+  const [contact, setContact] = useState({
+    fName: "",
+    lName: "",
+    email: ""
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setContact(prevValue => {
+      return { ...prevValue, [name]: value };
+    });
   }
 
-  function setFalse() {
-    setIsWhat(false);
-  }
-  function updateFname(event) {
-    setFname(event.target.value);
-  }
-  function updateLname(event) {
-    setLname(event.target.value);
-  }
   return (
     <div className="container">
       <h1>
-        Hello {fname} {lname}
+        Hello {contact.fName} {contact.lName}
       </h1>
+      <p>{contact.email}</p>
       <form>
-        <input onChange={updateFname} name="fName" placeholder="First Name" />
-        <input onChange={updateLname} name="lName" placeholder="Last Name" />
-        <button
-          style={{ backgroundColor: isWhat && "black" }}
-          onMouseOver={setTrue}
-          onMouseOut={setFalse}
-        >
-          Submit
-        </button>
+        <input
+          onChange={handleChange}
+          name="fName"
+          value={contact.fName}
+          placeholder="First Name"
+        />
+        <input
+          onChange={handleChange}
+          name="lName"
+          value={contact.lName}
+          placeholder="Last Name"
+        />
+        <input
+          onChange={handleChange}
+          name="email"
+          value={contact.email}
+          placeholder="Email"
+        />
+        <button>Submit</button>
       </form>
     </div>
   );
